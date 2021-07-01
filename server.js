@@ -1,15 +1,32 @@
-const express = require('express'); // require the express package
-const app = express(); // initialize your express app instance
+const express = require('express');
+const app = express();
 const cors = require('cors');
 require('dotenv').config();
-const weatherData= require('../starter-code/data/weather.json')
+// eslint-disable-next-line no-unused-vars
+const weather= require('./weather.json');
+const PORT=process.env.PORT;
 
-app.use(cors()); // after you initialize your express app instance
+app.use(cors());
 
-// a server endpoint
-app.get('/', // our endpoint name
-  function (req, res) { // callback function of what we should do with our request
-    res.send('Hello World'); // our endpoint function response
+
+app.get('/weather', (req, res)=> {
+  // let lon=req.query.lon;
+  // let lat=req.query.lat;
+  // let searchQuery=req.query.searchQuery;
+
+  let forCastList=weather.map((item)=>{
+    return new ForCast(item);
   });
+  res.json(forCastList);
+});
 
-app.listen(3000); // kick start the express server to work
+class ForCast{
+  constructor(weatherlist){
+    this.date=weatherlist.valid_date;
+    this.description=weatherlist.weather.description;
+  }
+}
+
+app.listen(PORT,()=>{
+  console.log(`start at : ${PORT}`);
+});
