@@ -15,27 +15,33 @@ app.get('/weather', (req, res) => {
   let lon = req.query.lon;
   let lat = req.query.lat;
   let searchQuery = req.query.searchQuery;
-  // let myData = [weather];
+  let myData = [weather];
   try {
-    let myData = () => {
-      let city = weather.find((city) => {
-        return city.city_name.toLowerCase() === searchQuery.toLowerCase() && city.lat === Number(lat) && city.lon === Number(lon)
-      });
-    };
-    return city.valid_date.map(item => {
+
+    let city = myData.find((city) => {
+      return city.city_name.toLowerCase() === searchQuery.toLowerCase() && city.lat === Number(lat) && city.lon === Number(lon);
+    });
+
+
+    let data = city.data.map(item => {
       return new ForCast(item);
     });
-  
-    res.json(myData());
-    catch (error) {
-      res.json({
-        res.status(400)
-        messag: 'sorry there is an Error', error: error
 
-      })
-    }
+    res.send(data);
+  } catch (error) {
+    console.log('this is :' ,error );
+    res.status(400);
  
+    res.json({
+
+      messag: 'sorry there is an Error',
+      error: error.messag
+
+    });
+
   }
+
+
   // let newArrayObj = myData.find((ele=>searchQuery===ele.city_name));
   // console.log(newArrayObj);
   // if(newArrayObj === undefined){
@@ -57,16 +63,16 @@ app.get('/weather', (req, res) => {
   //   let lon=req.query.lon;
   //   let searchQuery=req.query.searchQuery;
 
- //   let findData=()=>{
- //     return weather.data.map((value)=>{
- //       return new ForCast(value);
- //     })
- //   }
-  //  res.json(findData()  
+  //   let findData=()=>{
+  //     return weather.data.map((value)=>{
+  //       return new ForCast(value);
+  //     })
+  //   }
+  //  res.json(findData()
 
-  // 
+  //
 
-})
+});
 
 class ForCast {
   constructor(weatherlist) {
