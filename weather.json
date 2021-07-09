@@ -706,9 +706,9 @@
       }
     ],
     "city_name": "Sydney",
-    "lon": 151.21,
+    "lon": 151.2164539,
     "timezone": "Australia/Sydney",
-    "lat": -33.87,
+    "lat": -33.8548157,
     "country_code": "AU",
     "state_code": "02"
   }

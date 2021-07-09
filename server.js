@@ -1,15 +1,22 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
 require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const app = express();
+app.use(cors());
+
+
+
 // eslint-disable-next-line no-unused-vars
 const weather = require('./weather.json');
 const PORT = process.env.PORT;
 
-app.use(cors());
 
+app.get('/ethar', (req, res) => {
+  console.log('anaaaaaaaaaa');
+})
 
 app.get('/weather', (req, res) => {
+  console.log('anything');
   // let userName =req.query.name;
   // let jobUser =req.query.job;
   let lon = req.query.lon;
@@ -17,7 +24,7 @@ app.get('/weather', (req, res) => {
   let searchQuery = req.query.searchQuery;
   let myData = [weather];
   try {
-
+    console.log('lat');
     let city = myData.find((city) => {
       return city.city_name.toLowerCase() === searchQuery.toLowerCase() && city.lat === Number(lat) && city.lon === Number(lon);
     });
@@ -29,9 +36,9 @@ app.get('/weather', (req, res) => {
 
     res.send(data);
   } catch (error) {
-    console.log('this is :' ,error );
+    console.log('this is :', error);
     res.status(400);
- 
+
     res.json({
 
       messag: 'sorry there is an Error',
